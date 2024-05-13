@@ -41,11 +41,6 @@ public class FeedbackController {
         return feedbackService.findFeedbackById(id);
     }
 
-   /* @GetMapping("/feedback")
-    public List<Feedback> getFeedbacks() {
-        return feedbackService.findAllFeedbacks();
-    }*/
-
     @GetMapping("/feedback")
     public Map<String, Object> getFeedbacks(HttpServletRequest request,
                                             @RequestParam(defaultValue = "1") int page,

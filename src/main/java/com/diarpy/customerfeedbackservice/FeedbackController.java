@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Mack_TB
@@ -37,8 +38,14 @@ public class FeedbackController {
         return feedbackService.findFeedbackById(id);
     }
 
-    @GetMapping("/feedback")
+   /* @GetMapping("/feedback")
     public List<Feedback> getFeedbacks() {
         return feedbackService.findAllFeedbacks();
+    }*/
+
+    @GetMapping("/feedback")
+    public Map<String, Object> getFeedbacks(@RequestParam(defaultValue = "1") int page,
+                                            @RequestParam(defaultValue = "10") int perPage) {
+        return feedbackService.findAllFeedbacks(page, perPage);
     }
 }

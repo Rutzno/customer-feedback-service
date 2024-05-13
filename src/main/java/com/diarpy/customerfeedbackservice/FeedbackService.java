@@ -1,16 +1,20 @@
 package com.diarpy.customerfeedbackservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Mack_TB
  * @since 10/05/2024
- * @version 1.0.2
+ * @version 1.0.3
  */
 
 @Service
@@ -31,8 +35,18 @@ public class FeedbackService {
         return feedback == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(feedback);
     }
 
-    public List<Feedback> findAllFeedbacks() {
+    public Map<String, Object> findAllFeedbacks(int page, int perPage) {
         Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-        return feedbackRepository.findAll(sortById);
+        if (page < 1) page = 1;
+        if (perPage < 5 || perPage > 20) perPage = 10;
+        Pageable pageable = PageRequest.of(page-1, perPage, sortById);
+        Page<Feedback> p = feedbackRepository.findAll(pageable);
+        Map<String, Object> response = Map.of(
+                "total_documents", p.getTotalElements(),
+                "is_first_page", p.isFirst(),
+                "is_last_page", p.isLast(),
+                "documents", p.getContent()
+        );
+        return response;
     }
 }

@@ -1,5 +1,8 @@
 package com.diarpy.customerfeedbackservice;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,6 +20,7 @@ import java.util.Map;
 
 @RestController
 public class FeedbackController {
+    private static final Logger LOG = LoggerFactory.getLogger(FeedbackController.class);
     private final FeedbackService feedbackService;
 
     @Autowired
@@ -37,9 +41,23 @@ public class FeedbackController {
         return feedbackService.findFeedbackById(id);
     }
 
+   /* @GetMapping("/feedback")
+    public List<Feedback> getFeedbacks() {
+        return feedbackService.findAllFeedbacks();
+    }*/
+
     @GetMapping("/feedback")
-    public Map<String, Object> getFeedbacks(@RequestParam(defaultValue = "1") int page,
-                                            @RequestParam(defaultValue = "10") int perPage) {
-        return feedbackService.findAllFeedbacks(page, perPage);
+    public Map<String, Object> getFeedbacks(HttpServletRequest request,
+                                            @RequestParam(defaultValue = "1") int page,
+                                            @RequestParam(defaultValue = "10") int perPage,
+                                            @RequestParam(required = false) Integer rating,
+                                            @RequestParam(required = false) String customer,
+                                            @RequestParam(required = false) String product,
+                                            @RequestParam(required = false) String vendor) {
+        /*if (rating == null && customer == null && product == null && vendor == null) {
+            return feedbackService.findAllFeedbacks(page, perPage);
+        }*/
+        LOG.info("Path : {}", request.getRequestURI() +"?"+request.getQueryString());
+        return feedbackService.findAllFeedbacks(page, perPage, rating, customer, product, vendor);
     }
 }

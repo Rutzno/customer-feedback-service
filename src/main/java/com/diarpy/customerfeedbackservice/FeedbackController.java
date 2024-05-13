@@ -49,9 +49,6 @@ public class FeedbackController {
                                             @RequestParam(required = false) String customer,
                                             @RequestParam(required = false) String product,
                                             @RequestParam(required = false) String vendor) {
-        /*if (rating == null && customer == null && product == null && vendor == null) {
-            return feedbackService.findAllFeedbacks(page, perPage);
-        }*/
         LOG.info("Path : {}", request.getRequestURI() +"?"+request.getQueryString());
         return feedbackService.findAllFeedbacks(page, perPage, rating, customer, product, vendor);
     }

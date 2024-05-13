@@ -7,14 +7,14 @@ import org.springframework.data.mongodb.core.mapping.Field;
 /**
  * @author Mack_TB
  * @since 10/05/2024
- * @version 1.0.2
+ * @version 1.0.4
  */
 
 @Document(collection = "feedback")
 public class Feedback {
     @Id
     private String id;
-    private int rating;
+    private Integer rating;
     @Field(write = Field.Write.ALWAYS)
     private String feedback; // Optional
     @Field(write = Field.Write.ALWAYS)
@@ -25,6 +25,15 @@ public class Feedback {
     public Feedback() {
     }
 
+    public Feedback(String id, Integer rating, String feedback, String customer, String product, String vendor) {
+        this.id = id;
+        this.rating = rating;
+        this.feedback = feedback;
+        this.customer = customer;
+        this.product = product;
+        this.vendor = vendor;
+    }
+
     public String getId() {
         return id;
     }
@@ -33,11 +42,11 @@ public class Feedback {
         this.id = id;
     }
 
-    public int getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 
@@ -71,5 +80,22 @@ public class Feedback {
 
     public void setVendor(String vendor) {
         this.vendor = vendor;
+    }
+
+   /* @Override
+    public String toString() {
+        return *//*"Feedback{" +*//*
+                "id='" + id + '\'' ;
+                *//*'}'*//*
+    }*/
+
+    @Override
+    public String toString() {
+        return "Feedback{" +
+                "rating=" + rating +
+                ", customer='" + customer + '\'' +
+                ", product='" + product + '\'' +
+                ", vendor='" + vendor + '\'' +
+                '}';
     }
 }

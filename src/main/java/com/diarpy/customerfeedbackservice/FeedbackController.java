@@ -7,13 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Map;
 
 /**
  * @author Mack_TB
  * @since 10/05/2024
- * @version 1.0.1
+ * @version 1.0.4
  */
 
 @RestController

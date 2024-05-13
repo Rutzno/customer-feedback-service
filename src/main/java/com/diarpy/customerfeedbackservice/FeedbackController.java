@@ -38,11 +38,6 @@ public class FeedbackController {
         return feedbackService.findFeedbackById(id);
     }
 
-   /* @GetMapping("/feedback")
-    public List<Feedback> getFeedbacks() {
-        return feedbackService.findAllFeedbacks();
-    }*/
-
     @GetMapping("/feedback")
     public Map<String, Object> getFeedbacks(@RequestParam(defaultValue = "1") int page,
                                             @RequestParam(defaultValue = "10") int perPage) {

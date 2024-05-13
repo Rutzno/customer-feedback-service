@@ -82,13 +82,6 @@ public class Feedback {
         this.vendor = vendor;
     }
 
-   /* @Override
-    public String toString() {
-        return *//*"Feedback{" +*//*
-                "id='" + id + '\'' ;
-                *//*'}'*//*
-    }*/
-
     @Override
     public String toString() {
         return "Feedback{" +

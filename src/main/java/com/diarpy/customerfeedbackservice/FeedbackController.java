@@ -4,11 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * @author Mack_TB
@@ -31,5 +30,15 @@ public class FeedbackController {
         feedback = feedbackService.saveFeedback(feedback);
         headers.setLocation(URI.create("/feedback/" + feedback.getId()));
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/feedback/{id}")
+    public ResponseEntity<Feedback> getFeedbackById(@PathVariable String id) {
+        return feedbackService.findFeedbackById(id);
+    }
+
+    @GetMapping("/feedback")
+    public List<Feedback> getFeedbacks() {
+        return feedbackService.findAllFeedbacks();
     }
 }

@@ -2,11 +2,12 @@ package com.diarpy.customerfeedbackservice;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
  * @author Mack_TB
  * @since 10/05/2024
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 @Document(collection = "feedback")
@@ -14,7 +15,9 @@ public class Feedback {
     @Id
     private String id;
     private int rating;
+    @Field(write = Field.Write.ALWAYS)
     private String feedback; // Optional
+    @Field(write = Field.Write.ALWAYS)
     private String customer; // Optional
     private String product;
     private String vendor;
